@@ -8,8 +8,8 @@ var path = []
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var robot  = get_node("../Ship")
-onready var camera = get_node("../Ship/Camera")
+onready var ship  = get_node("../Ship")
+onready var camera = get_node("../Camera")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,7 +28,7 @@ func _physics_process(delta):
 		# Direction is the difference between where we are now
 		# and where we want to go.
 		var destination = path[0]
-		direction = destination - robot.translation
+		direction = destination - ship.translation
 
 		# If the next node is closer than we intend to 'step', then
 		# take a smaller step. Otherwise we would go past it and
@@ -38,10 +38,12 @@ func _physics_process(delta):
 			# We should also remove this node since we're about to reach it.
 			path.remove(0)
 
-		# Move the robot towards the path node, by how far we want to travel.
-		# Note: For a KinematicBody, we would instead use move_and_slide
-		# so collisions work properly.
-		robot.translation += direction.normalized() * step_size
+		ship.translation += direction.normalized() * step_size
+		
+		direction.y = 0
+		if direction:
+			var look_at_point = ship.translation + direction.normalized()
+			ship.look_at(look_at_point, Vector3.UP)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,5 +56,4 @@ func _unhandled_input(event):
 		var to = from + camera.project_ray_normal(event.position) * 1000
 		var target_point = get_closest_point_to_segment(from, to)
 
-		path = get_simple_path(robot.translation, target_point, true)
-		print(target_point)
+		path = get_simple_path(ship.translation, target_point, true)
