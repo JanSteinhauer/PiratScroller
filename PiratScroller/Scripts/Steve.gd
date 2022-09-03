@@ -50,8 +50,10 @@ func _physics_process(delta):
 		velocity.x = 0
 	elif Input.is_action_pressed("ui_right"):
 		velocity.x = SPEED
+		$MeshInstance.rotate_y(deg2rad(-1))
 	elif Input.is_action_pressed("ui_left"):
 		velocity.x = -SPEED 
+		$MeshInstance.rotate_y(deg2rad(1))
 	else:
 		velocity.x = lerp(velocity.x,0,0.1)
 		
