@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Island.gd" type="Script" id=1]
 [ext_resource path="res://Assets/models/Island.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Materials/islandMat.tres" type="Material" id=3]
 
 [sub_resource type="SphereShape" id=6]
 radius = 2.15261
@@ -16,3 +17,4 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52605, -4.76837e-07, 1.54851 )
 mesh = ExtResource( 2 )
 skeleton = NodePath("../../..")
+material/0 = ExtResource( 3 )
