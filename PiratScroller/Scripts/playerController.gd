@@ -76,5 +76,6 @@ func _unhandled_input(event):
 		path = get_simple_path(ship.translation, target_point, true)
 		
 		lastPressedPosition = from
+		lastSelectedIsland = null
 		
 
