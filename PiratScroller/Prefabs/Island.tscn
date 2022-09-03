@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Island.gd" type="Script" id=1]
+
+[sub_resource type="SphereShape" id=6]
+radius = 2.15261
+
+[sub_resource type="SphereMesh" id=5]
+
+[node name="Island" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 6 )
+
+[node name="Island" type="MeshInstance" parent="CollisionShape"]
+transform = Transform( 2.07019, 0, 0, 0, 1, 0, 0, 0, 2.07019, 0, 0, 0 )
+mesh = SubResource( 5 )
+skeleton = NodePath("../../..")

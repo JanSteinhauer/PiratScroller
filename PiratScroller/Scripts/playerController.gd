@@ -5,13 +5,17 @@ const SPEED = 10.0
 
 var path = []
 
+export var islandDistance = 2.5
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 onready var ship  = get_node("../Ship")
 onready var camera = get_node("../Camera")
 
-
+var lastPressedPosition = Vector3(0,0,0)
+var lastEventPosition = Vector2(0,0)
+var lastSelectedIsland = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_process_input(true)
@@ -44,6 +48,18 @@ func _physics_process(delta):
 		if direction:
 			var look_at_point = ship.translation + direction.normalized()
 			ship.look_at(look_at_point, Vector3.UP)
+			
+	var space_state = get_world().direct_space_state
+	# use global coordinates, not local to node
+	var to = lastPressedPosition + camera.project_ray_normal(lastEventPosition) * 1000
+	var result = space_state.intersect_ray(lastPressedPosition, to)
+	if result:
+		print("Hit at point: ", result.position)
+		lastSelectedIsland = result.collider
+	if  lastSelectedIsland != null:
+		print((lastSelectedIsland.translation - ship.translation).length())
+		if (lastSelectedIsland.translation - ship.translation).length() < islandDistance:
+			lastSelectedIsland.dispatchLoadUI()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,6 +70,11 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
 		var from = camera.project_ray_origin(event.position)
 		var to = from + camera.project_ray_normal(event.position) * 1000
+		lastEventPosition  = event.position
 		var target_point = get_closest_point_to_segment(from, to)
 
 		path = get_simple_path(ship.translation, target_point, true)
+		
+		lastPressedPosition = from
+		
+
