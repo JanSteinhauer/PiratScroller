@@ -18,13 +18,13 @@ onready var animPlayer = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var player_vars = get_node("/root/PlayerVariables")
+	curHp = player_vars.health
 	ui.update_health_bar (curHp, maxHp) #b
 	animPlayer.play("modelsrigAction")
 	#ui.update_coin_text (coinCounter) #b
 
 func take_damage (damage): #b
-	
-	
 	curHp -= damage #b
 	ui.update_health_bar(curHp, maxHp) #b
 	

@@ -2,6 +2,8 @@ extends KinematicBody
 
 var path=[]
 
+export var health = 100
+
 export var speed = 2
 export var offset = Vector3(0,-1,0)
 export var attackRange = 4

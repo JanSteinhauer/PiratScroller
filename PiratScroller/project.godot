@@ -14,6 +14,10 @@ config/name="PiratScroller"
 run/main_scene="res://Scenes/islandMap.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerVariables="*res://Scripts/playerVariables.gd"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
