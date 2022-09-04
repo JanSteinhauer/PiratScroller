@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Island Shop.png-cc223041b5ab7d2dafe97be1d7f6c67c.s3tc.stex"
-path.etc2="res://.import/Island Shop.png-cc223041b5ab7d2dafe97be1d7f6c67c.etc2.stex"
+path.s3tc="res://.import/Island Boss glow.png-3b9fa80a03e4fd5d941f1dddecb555c8.s3tc.stex"
+path.etc2="res://.import/Island Boss glow.png-3b9fa80a03e4fd5d941f1dddecb555c8.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/models/Island Shop.png"
-dest_files=[ "res://.import/Island Shop.png-cc223041b5ab7d2dafe97be1d7f6c67c.s3tc.stex", "res://.import/Island Shop.png-cc223041b5ab7d2dafe97be1d7f6c67c.etc2.stex" ]
+source_file="res://Assets/models/Island Boss glow.png"
+dest_files=[ "res://.import/Island Boss glow.png-3b9fa80a03e4fd5d941f1dddecb555c8.s3tc.stex", "res://.import/Island Boss glow.png-3b9fa80a03e4fd5d941f1dddecb555c8.etc2.stex" ]
 
 [params]
 

@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Enemy.obj-0c440e9b24aab7266e3fb04abf48587c.mesh"
+
+[deps]
+
+files=[ "res://.import/Enemy.obj-0c440e9b24aab7266e3fb04abf48587c.mesh" ]
+
+source_file="res://Assets/models/Enemy.obj"
+dest_files=[ "res://.import/Enemy.obj-0c440e9b24aab7266e3fb04abf48587c.mesh", "res://.import/Enemy.obj-0c440e9b24aab7266e3fb04abf48587c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

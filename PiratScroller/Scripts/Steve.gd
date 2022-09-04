@@ -13,9 +13,13 @@ var coinCounter : int = 8
 
 
 onready var ui = get_node("../Interface") #b
+
+onready var animPlayer = $AnimationPlayer
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ui.update_health_bar (curHp, maxHp) #b
+	animPlayer.play("modelsrigAction")
 	#ui.update_coin_text (coinCounter) #b
 
 func take_damage (damage): #b
@@ -38,24 +42,21 @@ func add_coins (amount): #b
 
 func _physics_process(delta):
 	
-	if Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down"):
-		velocity.z = 0
-	elif Input.is_action_pressed("ui_up"):
-		velocity.z = -SPEED
+	var dir_x = get_transform().basis.x
+	var dir_z = get_transform().basis.z
+	velocity = Vector3(0,0,0)
+	
+	if Input.is_action_pressed("ui_up"):
+		velocity += dir_z * -SPEED
 	elif Input.is_action_pressed("ui_down"):
-		velocity.z = SPEED
-	else:
-		velocity.z = lerp(velocity.z,0,0.1)
-	if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_left"):
-		velocity.x = 0
-	elif Input.is_action_pressed("ui_right"):
-		velocity.x = SPEED
-		$MeshInstance.rotate_y(deg2rad(-1))
+		velocity += dir_z * SPEED
+		
+	if Input.is_action_pressed("ui_right"):
+		#velocity += dir_z * SPEED
+		rotate_object_local(Vector3(0,1,0), deg2rad(-1))
 	elif Input.is_action_pressed("ui_left"):
-		velocity.x = -SPEED 
-		$MeshInstance.rotate_y(deg2rad(1))
-	else:
-		velocity.x = lerp(velocity.x,0,0.1)
+		#velocity = dir_z * -SPEED 
+		rotate_object_local(Vector3(0,1,0), deg2rad(1))
 		
 	move_and_slide(velocity)
 

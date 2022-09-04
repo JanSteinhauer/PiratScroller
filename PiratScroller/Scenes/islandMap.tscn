@@ -48,7 +48,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94587, -1.90735e-06, 6.85272
 targetLevel = "testLevel"
 
 [node name="Island3" parent="Navigation/NavigationMeshInstance" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1938, -1.90735e-06, -4.65689 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.22447, -0.0537281, -4.54355 )
 targetLevel = "testLevel"
 
 [node name="Island4" parent="Navigation/NavigationMeshInstance" instance=ExtResource( 8 )]

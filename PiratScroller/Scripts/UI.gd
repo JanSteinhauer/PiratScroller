@@ -1,7 +1,7 @@
 extends Node
 
-onready var healthBar : TextureProgress = get_node("Hbar")
-onready var coinCounter : Label = get_node("/Counter/Label")
+onready var healthBar : TextureProgress = $Hbar
+onready var coinCounter : Label =  $Counter/Label
 
 func update_health_bar (curHp, maxHp):
 	healthBar.max_value = maxHp
