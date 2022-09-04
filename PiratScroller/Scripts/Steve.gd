@@ -36,6 +36,7 @@ func _ready():
 func take_damage (damage): #b
 	var player_vars = get_node("/root/PlayerVariables")
 	player_vars.health -= damage
+	
 	ui.update_health_bar() #b
 	
 	if player_vars.health <= 0: #b
@@ -55,19 +56,24 @@ func _process(delta):
 	if Input.is_action_pressed("attack") && Time.get_ticks_msec() - lastAttackTime > attackTime:
 		lastAttackTime = Time.get_ticks_msec()
 		isAttacking = true
-		updateAnimation()
+		updateAnimation(isWalking)
 		var bodies = trigger.get_overlapping_bodies()
 		for body in bodies:
 			if body.is_in_group("Enemy"):
-				body.receiveDamage(attackDamage)
+				var player_vars = get_node("/root/PlayerVariables")
+				body.receiveDamage(player_vars.power)
 	
 
-func updateAnimation():
+func updateAnimation(walking):
 	if isAttacking:
 		animPlayer.play("modelsAttack")
 		return
+		
+	if isWalking == walking:
+		return
+		
+	isWalking = walking
 	if isWalking:
-		camRef.rotation = Vector3(0,0,0)
 		animPlayer.play("modelsrigAction")
 	else:
 		animPlayer.play("modelsIdle")
@@ -92,13 +98,12 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("ui_left"):
 		velocity += dir_x * -movSpeed
 	
-	isWalking = velocity.length() > 0
-	updateAnimation()	
+	updateAnimation(velocity.length() > 0)	
 	move_and_slide(velocity)
 	
 func _input(event):         
 	if event is InputEventMouseMotion:
-		if isWalking:
-			rotate_object_local(Vector3(0,1,0), deg2rad(-event.relative.x* sensitivity))
-		else:
-			camRef.rotate_object_local(Vector3(0,1,0), deg2rad(-event.relative.x* sensitivity))
+		#if isWalking:
+		rotate_object_local(Vector3(0,1,0), deg2rad(-event.relative.x* sensitivity))
+		#else:
+		#	camRef.rotate_object_local(Vector3(0,1,0), deg2rad(-event.relative.x* sensitivity))

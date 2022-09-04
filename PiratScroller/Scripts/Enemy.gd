@@ -4,7 +4,7 @@ var path=[]
 
 export var health = 15
 
-export var speed = 2
+export var speed = 200
 export var offset = Vector3(0,-1,0)
 export var attackRange = 4
 export var damage = 5
@@ -68,7 +68,7 @@ func _physics_process(delta):
 	if path.size() > 1:
 		#print(path[currentnode] ,"currentnode" , global_transform.origin, "global transform org")
 		var direction: Vector3 = path[1] - (global_transform.origin + offset)
-		direction = direction.normalized() * speed
+		direction = direction.normalized() * speed * delta
 		var lookRotation = player.global_transform.origin - global_transform.origin
 		lookRotation.y = 0
 		look_at(global_transform.origin + lookRotation.normalized(),Vector3.UP)

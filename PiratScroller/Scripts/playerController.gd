@@ -1,7 +1,7 @@
 extends Navigation
 
 
-const SPEED = 10.0
+const SPEED = 5
 
 var path = []
 
