@@ -2,50 +2,46 @@ extends KinematicBody
 
 var path=[]
 
-var speed = 2
+export var speed = 2
 export var offset = Vector3(0,-1,0)
+export var attackRange = 4
+export var damage = 5
+export var attackTime = 1000
 
 
 var currentnode = 1
 var x = Vector3(1,0,0)
 onready var nav = $"../Navigation" as Navigation
 onready var player = $"../Player" as KinematicBody
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
 
-# Called when the node enters the scene tree for the first time.
+var lastAttackTime 
+
 func _ready():
-	pass
-	#path  = nav.get_simple_path(global_transform.origin, player.global_transform.origin)# Replace with function body.
-	#print(path)
-	#print(global_transform.origin)
-	#print(player.global_transform.origin)
-
+	lastAttackTime = Time.get_ticks_msec()
 
 func _process(delta):
 	path  = nav.get_simple_path(global_transform.origin, player.global_transform.origin)# Replace with function body.
-	#print(path)
-	#print(global_transform.origin)
-	#print(player.global_transform.origin)
 	
 	
 func _physics_process(delta):
 	
+	var diff = player.global_transform.origin - global_transform.origin
+	if diff.length() < attackRange && Time.get_ticks_msec() - lastAttackTime > attackTime:
+		player.take_damage(damage)
+		lastAttackTime = Time.get_ticks_msec()
+		return
+	
 	update_path(player.global_transform.origin)
-	
-	if currentnode < path.size():
-		#print("ich werde ausgefuhrt")
-		#print(path)
-		print(path[currentnode] ,"currentnode" , global_transform.origin, "global transform org")
-		var direction: Vector3 = path[currentnode] - (global_transform.origin + offset)
+	if path.size() > 1:
+		#print(path[currentnode] ,"currentnode" , global_transform.origin, "global transform org")
+		var direction: Vector3 = path[1] - (global_transform.origin + offset)
+		direction = direction.normalized() * speed
+		var lookRotation = player.global_transform.origin - global_transform.origin
+		lookRotation.y = 0
+		look_at(global_transform.origin + lookRotation.normalized(),Vector3.UP)
 		move_and_slide(direction)
-			
-			
-func update_path(target_position):
 	
+	
+func update_path(target_position):
 	path = nav.get_simple_path(global_transform.origin, target_position)
-	currentnode = 1
-	#print("traget ", target_position, "global ", global_transform.origin)
-

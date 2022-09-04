@@ -4,12 +4,12 @@
 [ext_resource path="res://Assets/models/Enemy.obj" type="ArrayMesh" id=2]
 
 [sub_resource type="CapsuleShape" id=3]
-height = 3.04947
+height = 2.87039
 
 [node name="Enemy" type="KinematicBody"]
 script = ExtResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="Model" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.99705, -1.87187, 4.53197 )
 mesh = ExtResource( 2 )
 
