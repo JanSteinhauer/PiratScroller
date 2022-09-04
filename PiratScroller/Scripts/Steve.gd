@@ -14,6 +14,8 @@ onready var attackDamage = 5
 onready var ui = get_node("../Interface")
 onready var trigger = $AreaTrigger as Area
 
+onready var camRef = $ref
+
 var lastMouse
 
 onready var animPlayer = $AnimationPlayer
@@ -65,6 +67,7 @@ func updateAnimation():
 		animPlayer.play("modelsAttack")
 		return
 	if isWalking:
+		camRef.rotation = Vector3(0,0,0)
 		animPlayer.play("modelsrigAction")
 	else:
 		animPlayer.play("modelsIdle")
@@ -95,6 +98,7 @@ func _physics_process(delta):
 	
 func _input(event):         
 	if event is InputEventMouseMotion:
-		print(event.relative.x)
-		rotate_object_local(Vector3(0,1,0), deg2rad(-event.relative.x* sensitivity))
-		
+		if isWalking:
+			rotate_object_local(Vector3(0,1,0), deg2rad(-event.relative.x* sensitivity))
+		else:
+			camRef.rotate_object_local(Vector3(0,1,0), deg2rad(-event.relative.x* sensitivity))
