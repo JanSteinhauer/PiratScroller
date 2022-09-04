@@ -33,6 +33,7 @@ func receiveDamage(damage):
 		player_vars.enemyCounter -= 1
 		if player_vars.enemyCounter == 0:
 			get_tree().change_scene("res://Scenes/islandMap.tscn")
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		queue_free()
 
 func _process(delta):
