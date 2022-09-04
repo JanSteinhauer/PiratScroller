@@ -22,12 +22,17 @@ var lastAttackTime
 func _ready():
 	add_to_group("Enemy")
 	lastAttackTime = Time.get_ticks_msec()
+	var player_vars = get_node("/root/PlayerVariables")
+	player_vars.enemyCounter += 1
 
 func receiveDamage(damage):
 	health -= damage
 	if health <= 0:
 		var player_vars = get_node("/root/PlayerVariables")
 		player_vars.coins += coinLoot
+		player_vars.enemyCounter -= 1
+		if player_vars.enemyCounter == 0:
+			get_tree().change_scene("res://Scenes/islandMap.tscn")
 		queue_free()
 
 func _process(delta):

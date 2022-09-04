@@ -22,17 +22,16 @@ var lastAttackTime
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	lastAttackTime = Time.get_ticks_msec()
-	var player_vars = get_node("/root/PlayerVariables")
-	curHp = player_vars.health
-	ui.update_health_bar (curHp, maxHp) #b
+	ui.update_health_bar () #b
 	animPlayer.play("modelsrigAction")
 	ui.update_coin_text () #b
 
 func take_damage (damage): #b
-	curHp -= damage #b
-	ui.update_health_bar(curHp, maxHp) #b
+	var player_vars = get_node("/root/PlayerVariables")
+	player_vars.health -= damage
+	ui.update_health_bar() #b
 	
-	if curHp <= 0: #b
+	if player_vars.health <= 0: #b
 		die() #b
 
 func die(): #b

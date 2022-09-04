@@ -12,6 +12,7 @@ export var islandDistance = 2.5
 # var b = "text"
 onready var ship  = get_node("../Ship")
 onready var camera = get_node("../Camera")
+onready var ui = get_node("../Interface")
 
 var lastPressedPosition = Vector3(0,0,0)
 var lastEventPosition = Vector2(0,0)
@@ -21,6 +22,10 @@ func _ready():
 	set_process_input(true)
 
 
+func _process(delta):
+	ui.update_coin_text()
+	ui.update_health_bar()
+	
 func _physics_process(delta):
 	var direction = Vector3()
 

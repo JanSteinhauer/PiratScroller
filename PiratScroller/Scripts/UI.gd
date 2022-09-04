@@ -6,9 +6,12 @@ onready var coinCounter : Label =  $Counter/Label
 func _ready():
 	update_coin_text()
 
-func update_health_bar (curHp, maxHp):
-	healthBar.max_value = maxHp
-	healthBar.value = curHp
+func update_health_bar ():
+	
+	var player_vars = get_node("/root/PlayerVariables")
+	var health = player_vars.health
+	healthBar.max_value = 100
+	healthBar.value = health
 	
 
 func update_coin_text ():
