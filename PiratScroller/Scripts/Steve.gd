@@ -1,9 +1,6 @@
 extends KinematicBody
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var velocity = Vector3.ZERO
 const SPEED = 10
 
@@ -71,7 +68,6 @@ func updateAnimation():
 		animPlayer.play("modelsrigAction")
 	else:
 		animPlayer.play("modelsIdle")
-	
 
 func _physics_process(delta):
 	

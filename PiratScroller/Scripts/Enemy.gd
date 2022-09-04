@@ -17,6 +17,7 @@ var x = Vector3(1,0,0)
 onready var nav = $"../Navigation" as Navigation
 onready var player = $"../Player" as KinematicBody
 
+onready var animPlayer = $AnimationPlayer
 
 var lastKnockbackTime = 0
 var lastAttackTime 
@@ -26,6 +27,8 @@ func _ready():
 	lastAttackTime = Time.get_ticks_msec()
 	var player_vars = get_node("/root/PlayerVariables")
 	player_vars.enemyCounter += 1
+	
+	animPlayer.play("enemyWalkAnim")
 
 func receiveDamage(damage):
 	health -= damage
@@ -50,10 +53,13 @@ func _process(delta):
 func _physics_process(delta):
 	
 	var diff = player.global_transform.origin - global_transform.origin
-	if diff.length() < attackRange && Time.get_ticks_msec() - lastAttackTime > attackTime:
-		player.take_damage(damage)
-		lastAttackTime = Time.get_ticks_msec()
-		return
+	if Time.get_ticks_msec() - lastAttackTime > attackTime:
+		animPlayer.play("enemyWalkAnim")
+		if diff.length() < attackRange :
+			player.take_damage(damage)
+			animPlayer.play("enemyAttackAnim")
+			lastAttackTime = Time.get_ticks_msec()
+			return
 	
 	if  Time.get_ticks_msec() - lastKnockbackTime  < knockbackTime:
 		return
