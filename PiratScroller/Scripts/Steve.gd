@@ -9,20 +9,24 @@ const SPEED = 6
 
 var curHp : int = 75
 var maxHp : int = 100
-var coinCounter : int = 8
 
-
-onready var ui = get_node("../Interface") #b
+export var attackTime = 100
+onready var attackDamage = 5
+onready var ui = get_node("../Interface")
+onready var trigger = $AreaTrigger as Area
 
 onready var animPlayer = $AnimationPlayer
+var lastAttackTime 
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	lastAttackTime = Time.get_ticks_msec()
 	var player_vars = get_node("/root/PlayerVariables")
 	curHp = player_vars.health
 	ui.update_health_bar (curHp, maxHp) #b
 	animPlayer.play("modelsrigAction")
-	#ui.update_coin_text (coinCounter) #b
+	ui.update_coin_text () #b
 
 func take_damage (damage): #b
 	curHp -= damage #b
@@ -35,10 +39,17 @@ func die(): #b
 	
 	pass #b
 
-func add_coins (amount): #b
 	
-	coinCounter += amount #b
-	ui.update_coin_text(coinCounter)#b
+func _process(delta):
+	
+	ui.update_coin_text()
+	if Input.is_action_pressed("attack") && Time.get_ticks_msec() - lastAttackTime > attackTime:
+		lastAttackTime = Time.get_ticks_msec()
+		var bodies = trigger.get_overlapping_bodies()
+		for body in bodies:
+			if body.is_in_group("Enemy"):
+				body.receiveDamage(attackDamage)
+	
 
 func _physics_process(delta):
 	

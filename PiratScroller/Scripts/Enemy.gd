@@ -9,7 +9,7 @@ export var offset = Vector3(0,-1,0)
 export var attackRange = 4
 export var damage = 5
 export var attackTime = 1000
-
+export var coinLoot = 1
 
 var currentnode = 1
 var x = Vector3(1,0,0)
@@ -20,7 +20,15 @@ onready var player = $"../Player" as KinematicBody
 var lastAttackTime 
 
 func _ready():
+	add_to_group("Enemy")
 	lastAttackTime = Time.get_ticks_msec()
+
+func receiveDamage(damage):
+	health -= damage
+	if health <= 0:
+		var player_vars = get_node("/root/PlayerVariables")
+		player_vars.coins += coinLoot
+		queue_free()
 
 func _process(delta):
 	path  = nav.get_simple_path(global_transform.origin, player.global_transform.origin)# Replace with function body.
